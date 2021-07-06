@@ -44,8 +44,8 @@ app.post("https://powerful-lake-07951.herokuapp.com/url", async (req, res) => {
     if (!urlResult) {
       //save url if it's not saved
 
-      const randomValue = crypto.randomBytes(3).toString("hex");
-      const newUrlCode = `https://powerful-lake-07951.herokuapp.com/${randomValue}`;
+      // const randomValue = crypto.randomBytes(3).toString("hex");
+      const newUrlCode = `https://powerful-lake-07951.herokuapp.com/46846`;
       const newUrl = await new urlschema({
         inputURL,
         randomValue,
