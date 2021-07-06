@@ -17,7 +17,7 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-app.post("https://powerful-lake-07951.herokuapp.com", async (req, res) => {
+app.post("https://powerful-lake-07951.herokuapp.com/", async (req, res) => {
   const { inputURL } = req.body;
 
   const newUrlCode = `https://powerful-lake-07951.herokuapp.com/0000`;
