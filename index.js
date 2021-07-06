@@ -30,7 +30,7 @@ const handleError = (error) => {
 
 let count = 0;
 
-app.post("/url", async (req, res) => {
+app.post("https://powerful-lake-07951.herokuapp.com/url", async (req, res) => {
   try {
     let { inputURL } = req.body;
     inputURL.trim();
