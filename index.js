@@ -28,10 +28,11 @@ const handleError = (error) => {
 };
 
 let count = 0;
-app.get("*", async (req, res) => {
+app.get("https://url-shortener00.herokuapp.com", async (req, res) => {
   try {
-    const { url } = req.body;
     console.log(req.body);
+    const { url } = req.body;
+
     const result = await urlschema.findOne(url);
     if (!result) {
       throw new Error("url does not exit");
@@ -51,7 +52,7 @@ app.get("*", async (req, res) => {
   }
 });
 
-app.post("/", async (req, res) => {
+app.post("https://url-shortener00.herokuapp.com", async (req, res) => {
   try {
     let { inputURL } = req.body;
 
@@ -70,7 +71,7 @@ app.post("/", async (req, res) => {
       //save url if it's not saved
 
       const randomValue = crypto.randomBytes(3).toString("hex");
-      newUrlCode = "http://heroku.com" + "/" + randomValue;
+      newUrlCode = "https://url-shortener00.herokuapp.com/" + randomValue;
       const newUrl = await new urlschema({
         inputURL,
         randomValue,
