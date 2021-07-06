@@ -12,6 +12,7 @@ const urlschema = require("./models/url.model");
 //db
 require("./config/db");
 
+app.set("view engine", "ejs");
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -29,10 +30,10 @@ const handleError = (error) => {
 
 let count = 0;
 
-app.post(" https://powerful-lake-07951.herokuapp.com/", async (req, res) => {
+app.post("/url", async (req, res) => {
   try {
     let { inputURL } = req.body;
-
+    inputURL.trim();
     //check if url is valid....
     const validURL = validator.isURL(inputURL);
 
@@ -48,7 +49,7 @@ app.post(" https://powerful-lake-07951.herokuapp.com/", async (req, res) => {
       //save url if it's not saved
 
       const randomValue = crypto.randomBytes(3).toString("hex");
-      newUrlCode = " https://powerful-lake-07951.herokuapp.com/" + randomValue;
+      newUrlCode = `https://powerful-lake-07951.herokuapp.com/${randomValue}`;
       const newUrl = await new urlschema({
         inputURL,
         randomValue,
@@ -76,19 +77,16 @@ app.post(" https://powerful-lake-07951.herokuapp.com/", async (req, res) => {
 
 app.get("https://powerful-lake-07951.herokuapp.com/*", async (req, res) => {
   try {
-    console.log(req.body);
-    const { url } = req.body;
+    const url = Object.values(req.params);
+    const shortURL = url[0];
+    console.log(shortURL);
 
-    const result = await urlschema.findOne(url);
+    const result = await urlschema.findOne({ randomValue: shortURL });
     if (!result) {
       throw new Error("url does not exit");
     }
-    count++;
-    return res.status(200).json({
-      status: "success",
-      url: result.inputURL,
-      count,
-    });
+
+    res.redirect(result.inputURL);
   } catch (error) {
     const err = handleError(error);
     res.status(500).json({
