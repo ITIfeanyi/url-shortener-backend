@@ -25,11 +25,12 @@ const handleError = (error) => {
   if (error.message === "invalid url") {
     err = "invalid url";
   }
-  return error.message;
+  return err;
 };
 
 app.post("https://powerful-lake-07951.herokuapp.com/url", async (req, res) => {
   try {
+<<<<<<< HEAD
     const { inputURL } = req.body;
 
     const urlResult = await urlschema.findOne({ inputURL });
@@ -46,6 +47,48 @@ app.post("https://powerful-lake-07951.herokuapp.com/url", async (req, res) => {
     }
   } catch (error) {
     console.log(error);
+=======
+    //check if url is valid....
+    // const validURL = validator.isURL(req.body.inputURL);
+    const newUrlCode = `https://powerful-lake-07951.herokuapp.com/46846`;
+    const newUrl = await new urlschema({
+      inputURL,
+      randomValue,
+      newUrlCode,
+    });
+    await newUrl.save();
+    res.status(200).json({
+      status: "success",
+      url: newUrlCode,
+    });
+
+    // if (!validURL) {
+    //   //throw an error when error is invalid
+    //   throw new Error("invalid url");
+    // }
+
+    // //search for url in db
+    // const urlResult = await urlschema.findOne({ inputURL });
+
+    // if (!urlResult) {
+    //   //save url if it's not saved
+
+    //   // const randomValue = crypto.randomBytes(3).toString("hex");
+
+    // } else {
+    //   res.status(200).json({
+    //     status: "success",
+    //     url: urlResult.newUrlCode,
+    //   });
+    // }
+  } catch (err) {
+    // const error = handleError(err);
+    // res.status(500).json({
+    //   status: "error",
+    //   error: error,
+    // });
+    console.log(err);
+>>>>>>> 67581c05cda0bcaf71fb6e8eae5d67083fe8eb03
   }
 });
 
