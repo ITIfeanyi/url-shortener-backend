@@ -29,7 +29,7 @@ const handleError = (error) => {
 
 let count = 0;
 
-app.post("https://url-shortener00.herokuapp.com", async (req, res) => {
+app.post(" https://powerful-lake-07951.herokuapp.com/", async (req, res) => {
   try {
     let { inputURL } = req.body;
 
@@ -48,7 +48,7 @@ app.post("https://url-shortener00.herokuapp.com", async (req, res) => {
       //save url if it's not saved
 
       const randomValue = crypto.randomBytes(3).toString("hex");
-      newUrlCode = "https://url-shortener00.herokuapp.com/" + randomValue;
+      newUrlCode = " https://powerful-lake-07951.herokuapp.com/" + randomValue;
       const newUrl = await new urlschema({
         inputURL,
         randomValue,
@@ -74,7 +74,7 @@ app.post("https://url-shortener00.herokuapp.com", async (req, res) => {
   }
 });
 
-app.get("https://url-shortener00.herokuapp.com/*", async (req, res) => {
+app.get("https://powerful-lake-07951.herokuapp.com/*", async (req, res) => {
   try {
     console.log(req.body);
     const { url } = req.body;

@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 mongoose.connect(
-  `${process.env.MONGO_URL}`,
+  `mongodb+srv://url-shortener:v8yZbgeb5pbHMaj6@cluster0.ecyvm.mongodb.net/urlShortener?retryWrites=true&w=majority`,
   {
     useNewUrlParser: true,
     useUnifiedTopology: true,
