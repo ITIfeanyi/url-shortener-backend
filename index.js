@@ -28,14 +28,10 @@ const handleError = (error) => {
   return error.message;
 };
 
-let count = 0;
-
 app.post("https://powerful-lake-07951.herokuapp.com/url", async (req, res) => {
   try {
-    let { inputURL } = req.body;
-    inputURL.trim();
     //check if url is valid....
-    const validURL = validator.isURL(inputURL);
+    const validURL = validator.isURL(req.body.inputURL);
 
     if (!validURL) {
       //throw an error when error is invalid
@@ -49,7 +45,7 @@ app.post("https://powerful-lake-07951.herokuapp.com/url", async (req, res) => {
       //save url if it's not saved
 
       const randomValue = crypto.randomBytes(3).toString("hex");
-      newUrlCode = `https://powerful-lake-07951.herokuapp.com/${randomValue}`;
+      const newUrlCode = `https://powerful-lake-07951.herokuapp.com/${randomValue}`;
       const newUrl = await new urlschema({
         inputURL,
         randomValue,
