@@ -75,11 +75,10 @@ app.post("/url", async (req, res) => {
   }
 });
 
-app.get("https://powerful-lake-07951.herokuapp.com/*", async (req, res) => {
+app.get("/*", async (req, res) => {
   try {
     const url = Object.values(req.params);
     const shortURL = url[0];
-    console.log(shortURL);
 
     const result = await urlschema.findOne({ randomValue: shortURL });
     if (!result) {
