@@ -64,11 +64,12 @@ app.post("https://powerful-lake-07951.herokuapp.com/url", async (req, res) => {
     //   });
     // }
   } catch (err) {
-    const error = handleError(err);
-    res.status(500).json({
-      status: "error",
-      error: error,
-    });
+    // const error = handleError(err);
+    // res.status(500).json({
+    //   status: "error",
+    //   error: error,
+    // });
+    console.log(err);
   }
 });
 
