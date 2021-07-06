@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const url = new mongoose.Schema({
-  count: Number,
+  count: { type: Number, default: 0 },
   randomValue: String,
   inputURL: String,
   newUrlCode: String,

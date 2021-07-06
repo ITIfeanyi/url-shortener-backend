@@ -83,7 +83,9 @@ app.get("/*", async (req, res) => {
     if (!result) {
       throw new Error("url does not exit");
     }
-
+    result.count = +1;
+    console.log(result.count);
+    await result.save();
     res.redirect(result.inputURL);
   } catch (error) {
     const err = handleError(error);
