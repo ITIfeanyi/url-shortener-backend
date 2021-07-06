@@ -28,29 +28,6 @@ const handleError = (error) => {
 };
 
 let count = 0;
-app.get("https://url-shortener00.herokuapp.com", async (req, res) => {
-  try {
-    console.log(req.body);
-    const { url } = req.body;
-
-    const result = await urlschema.findOne(url);
-    if (!result) {
-      throw new Error("url does not exit");
-    }
-    count++;
-    return res.status(200).json({
-      status: "success",
-      url: result.inputURL,
-      count,
-    });
-  } catch (error) {
-    const err = handleError(error);
-    res.status(500).json({
-      status: "error",
-      error: err,
-    });
-  }
-});
 
 app.post("https://url-shortener00.herokuapp.com", async (req, res) => {
   try {
@@ -93,6 +70,30 @@ app.post("https://url-shortener00.herokuapp.com", async (req, res) => {
     res.status(500).json({
       status: "error",
       error: error,
+    });
+  }
+});
+
+app.get("https://url-shortener00.herokuapp.com/*", async (req, res) => {
+  try {
+    console.log(req.body);
+    const { url } = req.body;
+
+    const result = await urlschema.findOne(url);
+    if (!result) {
+      throw new Error("url does not exit");
+    }
+    count++;
+    return res.status(200).json({
+      status: "success",
+      url: result.inputURL,
+      count,
+    });
+  } catch (error) {
+    const err = handleError(error);
+    res.status(500).json({
+      status: "error",
+      error: err,
     });
   }
 });
