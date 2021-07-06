@@ -25,7 +25,7 @@ const handleError = (error) => {
   if (error.message === "invalid url") {
     err = "invalid url";
   }
-  return error.message;
+  return err;
 };
 
 app.post("https://powerful-lake-07951.herokuapp.com/url", async (req, res) => {
