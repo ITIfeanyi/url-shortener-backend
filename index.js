@@ -30,46 +30,68 @@ const handleError = (error) => {
 
 app.post("https://powerful-lake-07951.herokuapp.com/url", async (req, res) => {
   try {
-    //check if url is valid....
-    const validURL = validator.isURL(req.body.inputURL);
+    const { inputURL } = req.body;
 
-    if (!validURL) {
-      //throw an error when error is invalid
-      throw new Error("invalid url");
-    }
-
-    //search for url in db
     const urlResult = await urlschema.findOne({ inputURL });
-
     if (!urlResult) {
-      //save url if it's not saved
-
-      // const randomValue = crypto.randomBytes(3).toString("hex");
-      const newUrlCode = `https://powerful-lake-07951.herokuapp.com/46846`;
+      const randomValue = crypto.randomBytes(3).toString("hex");
+      const newUrlCode = `https://powerful-lake-07951.herokuapp.com/${randomValue}`;
       const newUrl = await new urlschema({
         inputURL,
         randomValue,
         newUrlCode,
       });
       await newUrl.save();
-      res.status(200).json({
-        status: "success",
-        url: newUrlCode,
-      });
-    } else {
-      res.status(200).json({
-        status: "success",
-        url: urlResult.newUrlCode,
-      });
+      res.status(201).json(newUrl.newUrlCode);
     }
-  } catch (err) {
-    const error = handleError(err);
-    res.status(500).json({
-      status: "error",
-      error: error,
-    });
+  } catch (error) {
+    console.log(error);
   }
 });
+
+// app.post("https://powerful-lake-07951.herokuapp.com/url", async (req, res) => {
+//   try {
+//     //check if url is valid....
+//     const validURL = validator.isURL(req.body.inputURL);
+
+//     // if (!validURL) {
+//     //   //throw an error when error is invalid
+//     //   throw new Error("invalid url");
+//     // }
+
+//     //search for url in db
+//     const urlResult = await urlschema.findOne({ inputURL });
+
+//     if (!urlResult) {
+//       //save url if it's not saved
+
+//       // const randomValue = crypto.randomBytes(3).toString("hex");
+//       const newUrlCode = `https://powerful-lake-07951.herokuapp.com/46846`;
+//       const newUrl = await new urlschema({
+//         inputURL,
+//         randomValue,
+//         newUrlCode,
+//       });
+//       await newUrl.save();
+//       res.status(200).json({
+//         status: "success",
+//         url: newUrlCode,
+//       });
+//     } else {
+//       res.status(200).json({
+//         status: "success",
+//         url: urlResult.newUrlCode,
+//       });
+//     }
+//   } catch (err) {
+//     console.log(err)
+//     // const error = handleError(err);
+//     // res.status(500).json({
+//     //   status: "error",
+//     //   error: error,
+//     // });
+//   }
+// });
 
 app.get("/*", async (req, res) => {
   try {
