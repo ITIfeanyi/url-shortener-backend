@@ -1,11 +1,12 @@
 const mongoose = require("mongoose");
 
 mongoose.connect(
-  `mongodb+srv://url-shortener:v8yZbgeb5pbHMaj6@cluster0.ecyvm.mongodb.net/urlShortener?retryWrites=true&w=majority`,
+  `${process.env.MONGO_URL}`,
   {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useCreateIndex: true,
+    useFindAndModify: true,
   },
   (err) => {
     if (err) {
