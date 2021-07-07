@@ -6,6 +6,8 @@ module.exports = {
     }
     if (error.message === "invalid url") {
       err = "invalid url";
+    } else {
+      err = error.message;
     }
     return err;
   },
