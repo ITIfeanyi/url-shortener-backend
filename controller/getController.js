@@ -6,13 +6,13 @@ const { handleError } = require("../Errors/urlErrors");
 module.exports = async (req, res) => {
   try {
     const agent = useragent.parse(req.headers["user-agent"]);
-
     //arrange the visitor's metadata
     const userInfo = {
       family: agent.family,
       os: agent.os,
       device: agent.device,
       source: agent.source,
+      referer: req.headers.referer,
     };
     const url = Object.values(req.params);
     const shortURL = url[0];

@@ -13,6 +13,7 @@ const url = new mongoose.Schema({
       os: String,
       device: String,
       source: String,
+      referer: String,
     },
   ],
 });
